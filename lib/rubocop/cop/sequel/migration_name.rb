@@ -17,9 +17,8 @@ module RuboCop
         private
 
         def filename_bad?(path)
-          # TODO: Use configuration
           basename = File.basename(path)
-          basename =~ /new_migration/
+          basename =~ /#{cop_config.fetch('DefaultName', 'new_migration')}/
         end
       end
     end
