@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = '0.0.1'
 
-  gem.add_runtime_dependency 'rubocop', '~> 0.46', '>= 0.46'
+  gem.add_runtime_dependency 'rubocop', '~> 0.51', '>= 0.51'
 
   gem.add_development_dependency 'rake', '~> 12.0.0', '>= 12.0.0'
   gem.add_development_dependency 'sequel', '~> 4.41', '>= 4.41.0'
