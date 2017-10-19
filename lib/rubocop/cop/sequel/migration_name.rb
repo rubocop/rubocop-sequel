@@ -11,7 +11,8 @@ module RuboCop
 
           return unless filename_bad?(file_path)
 
-          add_offense(nil, location: source_range(processed_source.buffer, 1, 0), message: nil)
+          location = source_range(processed_source.buffer, 1, 0)
+          add_offense(nil, location: location)
         end
 
         private

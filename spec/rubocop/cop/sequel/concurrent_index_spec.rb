@@ -21,7 +21,9 @@ describe RuboCop::Cop::Sequel::ConcurrentIndex do
   end
 
   it 'does not register an offense when using concurrent option' do
-    inspect_source('add_index(:products, :name, unique: true, concurrently: true)')
+    inspect_source(
+      'add_index(:products, :name, unique: true, concurrently: true)'
+    )
     expect(cop.offenses).to be_empty
   end
 end
