@@ -10,7 +10,7 @@ module RuboCop
         END
 
         def on_send(node)
-          add_offense(node, :selector, MSG) if model_save(node)
+          add_offense(node, location: :selector, message: MSG) if model_save(node)
         end
 
         def autocorrect(node)

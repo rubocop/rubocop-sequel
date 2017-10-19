@@ -10,7 +10,7 @@ module RuboCop
         END
 
         def on_send(node)
-          add_offense(node, :selector, MSG) if add_column_default(node)
+          add_offense(node, location: :selector, message: MSG) if add_column_default(node)
         end
       end
     end
