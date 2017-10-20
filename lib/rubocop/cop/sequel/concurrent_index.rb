@@ -5,20 +5,22 @@ module RuboCop
       class ConcurrentIndex < Cop
         MSG = 'Prefer creating new index concurrently'.freeze
 
-        def_node_matcher :add_index, <<-END
+        def_node_matcher :add_index, <<-MATCHER
           (send _ :add_index $...)
-        END
+        MATCHER
 
         def on_send(node)
           add_index(node) do |args|
-            add_offense(node, :selector, MSG) if offensive?(args)
+            if offensive?(args)
+              add_offense(node, location: :selector, message: MSG)
+            end
           end
         end
 
         private
 
         def offensive?(args)
-          !args.last.hash_type? || !args.last.each_descendant.any? do |n|
+          !args.last.hash_type? || args.last.each_descendant.none? do |n|
             next unless n.sym_type?
             n.children.any? { |s| s == :concurrently }
           end

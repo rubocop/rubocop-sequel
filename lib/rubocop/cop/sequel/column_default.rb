@@ -5,12 +5,13 @@ module RuboCop
       class ColumnDefault < Cop
         MSG = "Don't create new column with default values".freeze
 
-        def_node_matcher :add_column_default, <<-END
+        def_node_matcher :add_column_default, <<-MATCHER
           (send _ :add_column ... (hash (pair (sym :default) _)))
-        END
+        MATCHER
 
         def on_send(node)
-          add_offense(node, :selector, MSG) if add_column_default(node)
+          return unless add_column_default(node)
+          add_offense(node, location: :selector, message: MSG)
         end
       end
     end
