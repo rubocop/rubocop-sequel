@@ -11,13 +11,13 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'rubocop-sequel'
   gem.require_paths = ['lib']
-  gem.version       = '0.0.2'
+  gem.version       = '0.0.3'
 
-  gem.add_runtime_dependency 'rubocop', '~> 0.51', '>= 0.51'
+  gem.add_runtime_dependency 'rubocop', '~> 0.52', '>= 0.52'
 
   gem.add_development_dependency 'rake', '~> 12.0.0', '>= 12.0.0'
   gem.add_development_dependency 'rspec', '~> 3.5', '>= 3.5.0'
-  gem.add_development_dependency 'sequel', '~> 4.41', '>= 4.41.0'
+  gem.add_development_dependency 'sequel', '~> 4.49', '>= 4.49.0'
   gem.add_development_dependency 'simplecov', '~> 0.12'
   gem.add_development_dependency 'sqlite3', '~> 1.3', '>= 1.3.12'
 end
