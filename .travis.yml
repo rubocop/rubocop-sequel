@@ -1,5 +1,8 @@
 language: ruby
 rvm:
-  - 2.3.3
-  - 2.4.0
-script: bundle exec rspec spec
+  - 2.3
+  - 2.4
+  - 2.5
+script:
+  - bundle exec rubocop --parallel
+  - bundle exec rspec
