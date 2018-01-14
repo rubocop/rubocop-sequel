@@ -6,3 +6,5 @@ rvm:
 script:
   - bundle exec rubocop --parallel
   - bundle exec rspec
+notifications:
+  email: false
