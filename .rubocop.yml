@@ -1,0 +1,13 @@
+require:
+  - rubocop-rspec
+
+# Offense count: 1
+# Configuration parameters: CountComments, ExcludedMethods.
+Metrics/BlockLength:
+  Max: 30
+
+# Offense count: 1
+# Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts, AllowedAcronyms.
+Naming/FileName:
+  Exclude:
+    - 'lib/rubocop-sequel.rb'

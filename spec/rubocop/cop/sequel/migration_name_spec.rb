@@ -11,7 +11,7 @@ describe RuboCop::Cop::Sequel::MigrationName, :config do
     )
   end
 
-  context 'default configuration' do
+  context 'with default configuration' do
     let(:cop_config) { {} }
 
     it 'registers an offense when using the default name' do

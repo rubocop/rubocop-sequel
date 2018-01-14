@@ -15,7 +15,7 @@ describe RuboCop::Cop::Sequel::ConcurrentIndex do
     end
 
     it 'registers an offense with composite index' do
-      inspect_source('add_index(:products, :name, unique: true)')
+      inspect_source('add_index(:products, [:name, :price], unique: true)')
       expect(cop.offenses.size).to eq(1)
     end
   end
