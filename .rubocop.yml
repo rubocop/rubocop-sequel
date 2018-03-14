@@ -1,10 +1,13 @@
 require:
   - rubocop-rspec
 
+AllCops:
+  TargetRubyVersion: 2.3
+
 # Offense count: 1
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
-  Max: 30
+  Max: 31
 
 # Offense count: 1
 # Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts, AllowedAcronyms.

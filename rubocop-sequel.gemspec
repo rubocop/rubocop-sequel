@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Gem::Specification.new do |gem|
   gem.authors       = ['Timothée Peignier']
   gem.email         = ['timothee.peignier@tryphon.org']

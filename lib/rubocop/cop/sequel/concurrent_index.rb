@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module Sequel
       # ConcurrentIndex looks for non-concurrent index creation.
       class ConcurrentIndex < Cop
-        MSG = 'Prefer creating new index concurrently'.freeze
+        MSG = 'Prefer creating or dropping new index concurrently'
 
-        def_node_matcher :add_index, <<-MATCHER
-          (send _ :add_index $...)
+        def_node_matcher :indexes, <<-MATCHER
+          (send _ {:add_index :drop_index} $...)
         MATCHER
 
         def on_send(node)
-          add_index(node) do |args|
+          indexes(node) do |args|
             if offensive?(args)
               add_offense(node, location: :selector, message: MSG)
             end

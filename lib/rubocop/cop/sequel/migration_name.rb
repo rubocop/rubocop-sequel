@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 module RuboCop
   module Cop
     module Sequel
       # MigrationName looks for migration files named with a default name.
       class MigrationName < Cop
-        MSG = 'Migration files should not use default name.'.freeze
+        include RangeHelp
+
+        MSG = 'Migration files should not use default name.'
 
         def investigate(processed_source)
           file_path = processed_source.buffer.name
