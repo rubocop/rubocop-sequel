@@ -8,12 +8,12 @@ module RuboCop
         MSG = 'Use `Sequel::Model#save_changes` instead of '\
           '`Sequel::Model#save`.'
 
-        def_node_matcher :model_save, <<-MATCHER
+        def_node_matcher :model_save?, <<-MATCHER
           (send _ :save)
         MATCHER
 
         def on_send(node)
-          return unless model_save(node)
+          return unless model_save?(node)
           add_offense(node, location: :selector, message: MSG)
         end
 

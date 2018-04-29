@@ -7,12 +7,12 @@ module RuboCop
       class ConcurrentIndex < Cop
         MSG = 'Prefer creating or dropping new index concurrently'
 
-        def_node_matcher :indexes, <<-MATCHER
+        def_node_matcher :indexes?, <<-MATCHER
           (send _ {:add_index :drop_index} $...)
         MATCHER
 
         def on_send(node)
-          indexes(node) do |args|
+          indexes?(node) do |args|
             if offensive?(args)
               add_offense(node, location: :selector, message: MSG)
             end
