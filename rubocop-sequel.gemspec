@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'rubocop-sequel'
   gem.require_paths = ['lib']
-  gem.version       = '0.0.5'
+  gem.version       = '0.0.6'
 
   gem.add_runtime_dependency 'rubocop', '~> 0.55', '>= 0.55'
 
