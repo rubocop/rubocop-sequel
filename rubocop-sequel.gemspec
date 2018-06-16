@@ -4,8 +4,8 @@ Gem::Specification.new do |gem|
   gem.authors       = ['Timothée Peignier']
   gem.email         = ['timothee.peignier@tryphon.org']
   gem.description   = 'Code style checking for Sequel'
-  gem.summary       = 'A plugin for the RuboCop code style & linting tool.'
-  gem.homepage      = 'https://github.com/cyberdelia/rubocop-sequel'
+  gem.summary       = 'A Sequel plugin for the RuboCop code style & linting tool.'
+  gem.homepage      = 'https://github.com/rubocop-hq/rubocop-sequel'
   gem.license       = 'MIT'
 
   gem.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
