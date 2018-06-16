@@ -1,6 +1,6 @@
 # RuboCop Sequel
 
-Code style checking for Sequel.
+Code style checking for [Sequel](https://sequel.jeremyevans.net/).
 
 ## Installation
 
