@@ -24,6 +24,7 @@ module RuboCop
         def offensive?(args)
           !args.last.hash_type? || args.last.each_descendant.none? do |n|
             next unless n.sym_type?
+
             n.children.any? { |s| s == :concurrently }
           end
         end

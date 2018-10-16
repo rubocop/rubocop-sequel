@@ -21,13 +21,16 @@ module RuboCop
 
         def on_send(node)
           return unless json_or_hstore?(node)
+
           add_offense(node, location: :selector, message: MSG)
         end
 
         def on_block(node)
           return unless node.send_node.method_name == :create_table
+
           node.each_node(:send) do |method|
             next unless column_method?(method) || column_type?(method)
+
             add_offense(method, location: :selector, message: MSG)
           end
         end

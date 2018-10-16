@@ -14,6 +14,7 @@ module RuboCop
 
         def on_send(node)
           return unless model_save?(node)
+
           add_offense(node, location: :selector, message: MSG)
         end
 
