@@ -4,7 +4,7 @@ Code style checking for [Sequel](https://sequel.jeremyevans.net/).
 
 ## Installation
 
-Using the `rubocop-rspec` gem
+Using the `rubocop-sequel` gem
 
 ```bash
 gem install rubocop-sequel
