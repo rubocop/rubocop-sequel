@@ -1,3 +1,5 @@
+[![CircleCI status](https://circleci.com/gh/rubocop-hq/rubocop-sequel.svg?style=svg)](https://circleci.com/gh/rubocop-hq/rubocop-sequel)
+
 # RuboCop Sequel
 
 Code style checking for [Sequel](https://sequel.jeremyevans.net/).
