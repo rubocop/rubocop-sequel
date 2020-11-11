@@ -13,9 +13,7 @@ module RuboCop
 
         def on_send(node)
           indexes?(node) do |args|
-            if offensive?(args)
-              add_offense(node, location: :selector, message: MSG)
-            end
+            add_offense(node, location: :selector, message: MSG) if offensive?(args)
           end
         end
 
