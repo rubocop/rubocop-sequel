@@ -1,0 +1,28 @@
+name: CI
+on: push
+
+jobs:
+  main:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - 2.3
+          - 2.4
+          - 2.5
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Install gems
+        run: bundle install
+
+      - name: RuboCop
+        run: bundle exec rubocop --parallel
+
+      - name: RSpec
+        run: bundle exec rspec

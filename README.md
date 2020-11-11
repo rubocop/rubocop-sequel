@@ -1,4 +1,4 @@
-[![CircleCI status](https://circleci.com/gh/rubocop-hq/rubocop-sequel.svg?style=svg)](https://circleci.com/gh/rubocop-hq/rubocop-sequel)
+![CI status](https://github.com/rubocop-hq/rubocop-sequel/workflows/CI/badge.svg)
 
 # RuboCop Sequel
 
