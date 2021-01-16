@@ -4,7 +4,9 @@ module RuboCop
   module Cop
     module Sequel
       # SaveChanges promotes the use of save_changes.
-      class SaveChanges < Cop
+      class SaveChanges < Base
+        extend AutoCorrector
+
         MSG = 'Use `Sequel::Model#save_changes` instead of '\
           '`Sequel::Model#save`.'
 
@@ -15,11 +17,11 @@ module RuboCop
         def on_send(node)
           return unless model_save?(node)
 
-          add_offense(node, location: :selector, message: MSG)
-        end
+          range = node.loc.selector
 
-        def autocorrect(node)
-          ->(corrector) { corrector.replace(node.loc.selector, 'save_changes') }
+          add_offense(range, message: MSG) do |corrector|
+            corrector.replace(range, 'save_changes')
+          end
         end
       end
     end
