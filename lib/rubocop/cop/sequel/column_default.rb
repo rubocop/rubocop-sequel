@@ -4,7 +4,7 @@ module RuboCop
   module Cop
     module Sequel
       # ColumnDefault looks for column creation with a default value.
-      class ColumnDefault < Cop
+      class ColumnDefault < Base
         MSG = "Don't create new column with default values"
 
         def_node_matcher :add_column_default?, <<-MATCHER
@@ -14,7 +14,7 @@ module RuboCop
         def on_send(node)
           return unless add_column_default?(node)
 
-          add_offense(node, location: :selector, message: MSG)
+          add_offense(node.loc.selector, message: MSG)
         end
       end
     end

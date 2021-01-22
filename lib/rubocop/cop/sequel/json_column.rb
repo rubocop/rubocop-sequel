@@ -4,7 +4,7 @@ module RuboCop
   module Cop
     module Sequel
       # JSONColumn looks for non-JSONB columns.
-      class JSONColumn < Cop
+      class JSONColumn < Base
         MSG = 'Use JSONB rather than JSON or hstore'
 
         def_node_matcher :json_or_hstore?, <<-MATCHER
@@ -22,7 +22,7 @@ module RuboCop
         def on_send(node)
           return unless json_or_hstore?(node)
 
-          add_offense(node, location: :selector, message: MSG)
+          add_offense(node.loc.selector, message: MSG)
         end
 
         def on_block(node)
@@ -31,7 +31,7 @@ module RuboCop
           node.each_node(:send) do |method|
             next unless column_method?(method) || column_type?(method)
 
-            add_offense(method, location: :selector, message: MSG)
+            add_offense(method.loc.selector, message: MSG)
           end
         end
       end

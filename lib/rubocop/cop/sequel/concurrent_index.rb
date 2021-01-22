@@ -4,7 +4,7 @@ module RuboCop
   module Cop
     module Sequel
       # ConcurrentIndex looks for non-concurrent index creation.
-      class ConcurrentIndex < Cop
+      class ConcurrentIndex < Base
         MSG = 'Prefer creating or dropping new index concurrently'
 
         def_node_matcher :indexes?, <<-MATCHER
@@ -13,7 +13,7 @@ module RuboCop
 
         def on_send(node)
           indexes?(node) do |args|
-            add_offense(node, location: :selector, message: MSG) if offensive?(args)
+            add_offense(node.loc.selector, message: MSG) if offensive?(args)
           end
         end
 
