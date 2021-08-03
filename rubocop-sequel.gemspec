@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'rubocop', '~> 1.0'
 
-  gem.add_development_dependency 'rake', '~> 12.3.0'
+  gem.add_development_dependency 'rake', '~> 13.0.6'
   gem.add_development_dependency 'rspec', '~> 3.7'
   gem.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   gem.add_development_dependency 'rubocop-rspec', '~> 2.0'
