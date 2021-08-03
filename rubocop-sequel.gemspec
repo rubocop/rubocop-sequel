@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 3.7'
   gem.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   gem.add_development_dependency 'rubocop-rspec', '~> 2.0'
-  gem.add_development_dependency 'sequel', '~> 4.49'
+  gem.add_development_dependency 'sequel', '~> 5.47'
   gem.add_development_dependency 'simplecov', '~> 0.16'
   gem.add_development_dependency 'sqlite3', '~> 1.3', '>= 1.3.12'
 end
