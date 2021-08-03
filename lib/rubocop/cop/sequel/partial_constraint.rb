@@ -3,6 +3,7 @@
 module RuboCop
   module Cop
     module Sequel
+      # PartialConstraint looks for missed usage of partial indexes.
       class PartialConstraint < Cop
         MSG = "Constraint can't be partial, use where argument with index"
 

@@ -15,12 +15,13 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = '0.2.0'
 
-  gem.required_ruby_version = '>= 2.4'
+  gem.required_ruby_version = '>= 2.5'
 
   gem.add_runtime_dependency 'rubocop', '~> 1.0'
 
   gem.add_development_dependency 'rake', '~> 12.3.0'
   gem.add_development_dependency 'rspec', '~> 3.7'
+  gem.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   gem.add_development_dependency 'rubocop-rspec', '~> 2.0'
   gem.add_development_dependency 'sequel', '~> 4.49'
   gem.add_development_dependency 'simplecov', '~> 0.16'

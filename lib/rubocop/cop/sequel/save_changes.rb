@@ -8,7 +8,7 @@ module RuboCop
         extend AutoCorrector
 
         MSG = 'Use `Sequel::Model#save_changes` instead of '\
-          '`Sequel::Model#save`.'
+              '`Sequel::Model#save`.'
 
         def_node_matcher :model_save?, <<-MATCHER
           (send _ :save)
