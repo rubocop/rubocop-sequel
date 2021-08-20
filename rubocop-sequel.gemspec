@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'rubocop-sequel'
   gem.require_paths = ['lib']
-  gem.version       = '0.3.1'
+  gem.version       = '0.3.3'
 
   gem.required_ruby_version = '>= 2.5'
 
