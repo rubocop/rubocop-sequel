@@ -9,6 +9,7 @@ module RuboCop
 
         MSG = 'Use `Sequel::Model#save_changes` instead of '\
               '`Sequel::Model#save`.'
+        RESTRICT_ON_SEND = %i[save].freeze
 
         def_node_matcher :model_save?, <<-MATCHER
           (send _ :save)

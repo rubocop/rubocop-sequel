@@ -6,6 +6,7 @@ module RuboCop
       # JSONColumn looks for non-JSONB columns.
       class JSONColumn < Base
         MSG = 'Use JSONB rather than JSON or hstore'
+        RESTRICT_ON_SEND = %i[add_column].freeze
 
         def_node_matcher :json_or_hstore?, <<-MATCHER
           (send _ :add_column ... (sym {:json :hstore}))
