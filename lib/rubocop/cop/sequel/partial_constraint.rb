@@ -6,6 +6,7 @@ module RuboCop
       # PartialConstraint looks for missed usage of partial indexes.
       class PartialConstraint < Base
         MSG = "Constraint can't be partial, use where argument with index"
+        RESTRICT_ON_SEND = %i[add_unique_constraint].freeze
 
         def_node_matcher :add_partial_constraint?, <<-MATCHER
           (send _ :add_unique_constraint ... (hash (pair (sym :where) _)))
