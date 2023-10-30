@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rake', '~> 13.0.6'
+gem 'rake', '~> 13.1.0'
 gem 'rspec', '~> 3.7'
 gem 'rubocop-rspec', '~> 2.0'
 gem 'sequel', '~> 5.47'
