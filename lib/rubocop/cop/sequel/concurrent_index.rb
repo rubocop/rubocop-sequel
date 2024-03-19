@@ -5,7 +5,7 @@ module RuboCop
     module Sequel
       # ConcurrentIndex looks for non-concurrent index creation.
       class ConcurrentIndex < Base
-        MSG = 'Prefer creating or dropping new index concurrently'
+        MSG = 'Specify `concurrently` option when creating or dropping an index.'
         RESTRICT_ON_SEND = %i[add_index drop_index].freeze
 
         def_node_matcher :indexes?, <<-MATCHER
