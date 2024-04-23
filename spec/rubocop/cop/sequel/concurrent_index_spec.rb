@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-describe RuboCop::Cop::Sequel::ConcurrentIndex do
+RSpec.describe RuboCop::Cop::Sequel::ConcurrentIndex do
   subject(:cop) { described_class.new }
 
   context 'without the concurrent option' do

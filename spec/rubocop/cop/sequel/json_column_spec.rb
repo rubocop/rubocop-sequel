@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-describe RuboCop::Cop::Sequel::JSONColumn do
+RSpec.describe RuboCop::Cop::Sequel::JSONColumn do
   subject(:cop) { described_class.new }
 
   context 'with add_column' do

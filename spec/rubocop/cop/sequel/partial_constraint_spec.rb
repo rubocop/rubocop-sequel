@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-describe RuboCop::Cop::Sequel::PartialConstraint do
+RSpec.describe RuboCop::Cop::Sequel::PartialConstraint do
   subject(:cop) { described_class.new }
 
   it 'registers an offense when using where for constraint' do
