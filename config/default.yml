@@ -28,6 +28,7 @@ Sequel/MigrationName:
   Enabled: true
   VersionAdded: '0.0.1'
   VersionChanged: '0.3.3'
+  DefaultName: new_migration
 
 Sequel/PartialConstraint:
   Description: Advises on the correct use of partial indexes by specifying the `where' argument.
