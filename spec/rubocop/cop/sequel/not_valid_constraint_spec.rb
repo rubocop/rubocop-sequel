@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-describe RuboCop::Cop::Sequel::NotValidConstraint do
+RSpec.describe RuboCop::Cop::Sequel::NotValidConstraint do
   subject(:cop) { described_class.new }
 
   context 'when add_constraint used' do
