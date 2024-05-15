@@ -11,6 +11,13 @@ Sequel/ConcurrentIndex:
   VersionAdded: 0.0.1
   VersionChanged: 0.3.3
 
+Sequel/EnforceNotValidConstraint:
+  Description: 'Ensures that new constraints are created with the `not_valid: true` option.'
+  Reference: https://www.rubydoc.info/gems/rubocop-sequel/RuboCop/Cop/Sequel/EnforceNotValidConstraint
+  Enabled: false
+  VersionAdded: '0.3.4'
+  VersionChanged: '0.3.4'
+
 Sequel/JSONColumn:
   Description: >-
     Advocates the use of the `jsonb` column type over `json` or `hstore` for performance
