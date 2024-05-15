@@ -12,6 +12,15 @@ module RuboCop
       # This cop can be configured to exclude or include specific tables through
       # the `ExcludeTables` and `IncludeTables` options.
       #
+      # By using the not_valid: true option, the constraint is created but not enforced
+      # on existing data. This allows the database to continue operating normally without
+      # the overhead of immediate validation. You can then validate the existing data
+      # in a controlled manner using a separate process or during off-peak hours,
+      # minimizing the impact on your application’s performance. This approach ensures
+      # that the new constraint is applied to new data immediately while providing
+      # flexibility in handling existing data, promoting better performance and
+      # stability during schema changes. Also it is a good
+      #
       # @example
       #   # bad
       #   add_foreign_key :users, :orders, column: :user_id
@@ -47,25 +56,30 @@ module RuboCop
           (block
             (send _ :alter_table ({str sym} $_))
             _
-            (begin
-              $...
-            )
+            $...
           )
         MATCHER
 
         # Matcher for constraint operations like add_foreign_key and add_constraint
-        def_node_matcher :constraint_operation?, <<-MATCHER
-          (send _ {:add_foreign_key :add_constraint} $...)
+        def_node_search :constraint_operations, <<~MATCHER
+          (send _ {:add_foreign_key :add_constraint} ...)
+        MATCHER
+
+        # Matcher for check if the not_valid: true argument is present
+        def_node_search :not_valid_constraint?, <<~MATCHER
+          (pair (_ {:not_valid "not_valid"}) true)
         MATCHER
 
         # Check constraint operations inside the alter_table block
         #
         # @param node [RuboCop::AST::Node] the AST node being checked
         def on_block(node)
-          alter_table_block?(node) do |table_name, block_nodes|
-            next if skip_table?(table_name)
+          alter_table_block?(node) do |table_name, _block_nodes|
+            next if exclude_table?(table_name)
 
-            block_nodes.each { |block_node| validate_node(block_node) }
+            constraint_operations(node).each do |block_node|
+              validate_node(block_node)
+            end
           end
         end
 
@@ -75,47 +89,18 @@ module RuboCop
         #
         # @param node [RuboCop::AST::Node] the AST node being checked
         def validate_node(node)
-          constraint_operation?(node) do |args|
-            next if not_valid_option_present?(args)
-
-            add_offense(node, message: MSG)
-          end
-        end
-
-        # Check if the not_valid: true option is present
-        #
-        # @param args [Array<RuboCop::AST::Node>] the operation arguments
-        # @return [Boolean] whether the not_valid: true option is present
-        def not_valid_option_present?(args)
-          args.any? do |arg|
-            arg.hash_type? && arg.pairs.any? do |pair|
-              key = pair.key
-              value = pair.value
-              key.sym_type? && key.children.first == :not_valid && value.true_type?
-            end
-          end
+          add_offense(node, message: MSG) unless not_valid_constraint?(node)
         end
 
         # Skip the table if it is excluded or not included
         #
-        # @param table_name [String] the name of the table
+        # @param table_name [String,Symbol] the name of the table
         # @return [Boolean] whether the table should be skipped
-        def skip_table?(table_name)
-          return true if excluded_table?(table_name.to_s)
+        def exclude_table?(table_name)
+          return true if cop_config['ExcludeTables']&.include?(table_name.to_s)
+          return false unless cop_config.key?('IncludeTables')
 
-          !included_table?(table_name.to_s)
-        end
-
-        def excluded_table?(table_name)
-          return false unless cop_config.key?('ExcludeTables')
-
-          cop_config['ExcludeTables'].include?(table_name)
-        end
-
-        def included_table?(table_name)
-          return true unless cop_config.key?('IncludeTables')
-
-          cop_config['IncludeTables'].include?(table_name)
+          !cop_config['IncludeTables'].include?(table_name.to_s)
         end
       end
     end
