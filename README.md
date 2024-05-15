@@ -2,45 +2,82 @@
 
 # RuboCop Sequel
 
-Code style checking for [Sequel](https://sequel.jeremyevans.net/).
+Code style checking for [Sequel ORM](https://sequel.jeremyevans.net/).
 
 ## Installation
 
-Using the `rubocop-sequel` gem
+You can install the `rubocop-sequel` gem using either of the following methods:
+
+### Via RubyGems
+
+Run this command in your terminal:
 
 ```bash
 gem install rubocop-sequel
 ```
 
-or using bundler by adding in your `Gemfile`
+### Using Bundler
 
-```
+Add this line to your project's Gemfile:
+
+```ruby
 gem 'rubocop-sequel'
+```
+
+Then, execute:
+
+```bash
+bundle install
 ```
 
 ## Usage
 
-### RuboCop configuration file
+### Configuring RuboCop
 
-Add to your `.rubocop.yml`.
+To integrate RuboCop Sequel into your project, add the following line to your
+`.rubocop.yml` configuration file:
 
-```
+```yaml
 require: rubocop-sequel
 ```
 
-`rubocop` will now automatically load RuboCop Sequel
-cops alongside with the standard cops.
+This configuration instructs RuboCop to automatically load the RuboCop Sequel cops
+along with the standard set, enhancing your project's code analysis with
+Sequel-specific checks.
 
-### Command line
+### Running from the Command Line
+
+Invoke RuboCop with the `rubocop-sequel` requirement to analyze your project's files:
 
 ```bash
 rubocop --require rubocop-sequel
 ```
 
-### Rake task
+## Testing with RuboCop Sequel Cops
 
-```ruby
-RuboCop::RakeTask.new do |task|
-  task.requires << 'rubocop-sequel'
-end
-```
+The rubocop-sequel gem includes several cops that enforce best practices for using
+Sequel. These cops are designed to catch common errors and guide developers towards
+more efficient and maintainable code patterns. Below are examples of some key cops
+and how they improve your Sequel code:
+
+ - `Sequel::SaveChanges` - Ensures the use of save_changes instead of save to persist
+   changes to models.
+ - `Sequel::JSONColumn` - Advocates the use of the `jsonb` column type over `json` or
+   `hstore` for performance benefits and additional functionality.
+ - `Sequel::ConcurrentIndex` - Encourages the creation of indexes with the
+   `NOT VALID` option to avoid locking tables.
+ - `Sequel::PartialConstraint` - Advises on the correct use of partial indexes by
+    specifying the `where' argument.
+ - `Sequel::NotValidConstraint` - Suggests adding constraints with the
+   `not_valid: true` option for safer migrations.
+ - `Sequel::MigrationName` - Helps to name migration files descriptively in order to
+    avoid the use of default or generic names.
+
+By incorporating these and other Sequel-specific cops into your RuboCop checks, you
+can significantly improve the quality and reliability of your database interactions.
+
+## Contribution
+
+Contributions to the `rubocop-sequel` project are welcome! Whether it's adding new
+cops, improving existing ones, or fixing bugs, your help is appreciated in making
+this gem more useful for the Ruby and Sequel communities.
