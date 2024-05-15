@@ -16,3 +16,6 @@ Metrics/BlockLength:
 Naming/FileName:
   Exclude:
     - 'lib/rubocop-sequel.rb'
+
+RSpec/ExampleLength:
+  Enabled: false

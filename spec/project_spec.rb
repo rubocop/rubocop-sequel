@@ -15,7 +15,7 @@ RSpec.describe 'config/default.yml', type: :feature do
       expect(description.include?("\n")).to be(false)
     end
 
-    it 'stars from a verb' do # rubocop:disable RSpec/ExampleLength
+    it 'stars from a verb' do
       description = config.dig(cop_name, 'Description')
       start_with_subject = description.match(/\AThis cop (?<verb>.+?) .*/)
       suggestion = start_with_subject[:verb]&.capitalize if start_with_subject
@@ -97,7 +97,7 @@ RSpec.describe 'config/default.yml', type: :feature do
     end
   end
 
-  it 'sorts cop names alphabetically' do # rubocop:disable RSpec/ExampleLength
+  it 'sorts cop names alphabetically' do
     previous_key = ''
     config_default = YAML.load_file('config/default.yml')
 
