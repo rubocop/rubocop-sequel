@@ -11,6 +11,14 @@ Sequel/ConcurrentIndex:
   VersionAdded: 0.0.1
   VersionChanged: 0.3.3
 
+Sequel/IrreversibleMigrationChange:
+  Description: >-
+    Warns against using certain methods inside a migration file's `change` block that would cause the migration to become irreversible.
+  Reference: https://www.rubydoc.info/gems/rubocop-sequel/RuboCop/Cop/Sequel/IrreversibleMigrationChange
+  Enabled: true
+  VersionAdded: 0.0.1
+  VersionChanged: 0.3.3
+
 Sequel/JSONColumn:
   Description: >-
     Advocates the use of the `jsonb` column type over `json` or `hstore` for performance
