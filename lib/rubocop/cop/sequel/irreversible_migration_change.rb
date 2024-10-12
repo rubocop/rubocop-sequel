@@ -18,7 +18,7 @@ module RuboCop
           add_column
           add_constraint
           add_foreign_key
-          add_primary_key(with a symbol, not an array)
+          add_primary_key
           add_index
           add_full_text_index
           add_spatial_index
@@ -27,21 +27,21 @@ module RuboCop
         ].freeze
 
         MSG = 'This method should not be used in a `change` block. Use a `down` block instead.'
+        PRIMARY_KEY_MESSAGE = 'Cannot use this method with an array parameter inside a `change` block. Use a `down` block instead.'
 
-        def_node_matcher :change_block_method?, <<~PATTERN
-          blah blah
-        PATTERN
+        def on_block(node)
+          return unless node.method_name == :change
 
-        def on_send(node)
-          change_block_method?(node) do |args|
-            add_offense(node.loc.selector, message: MSG) if offensive?(args)
+          body = node.body
+          return unless body
+
+          body.each_node(:send) do |node|
+            add_offense(node.loc.selector, message: MSG) unless VALID_CHANGE_METHODS.include?(node.method_name)
+
+            return unless node.method_name == :add_primary_key
+
+            add_offense(node.loc.selector, message: PRIMARY_KEY_MESSAGE) if node.argument_list.any? { |arg| arg.is_a? Array }
           end
-        end
-
-        private
-
-        def offensive?(args)
-          !VALID_CHANGE_METHODS.include?(args)
         end
       end
     end
