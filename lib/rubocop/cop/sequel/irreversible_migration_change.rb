@@ -6,7 +6,7 @@ module RuboCop
       # IrreversibleMigrationChange looks for methods inside a `change` block that cannot be reversed.
       class IrreversibleMigrationChange < Base
         # https://sequel.jeremyevans.net/rdoc/files/doc/migration_rdoc.html#label-A+Basic+Migration
-        VALID_CHANGE_METHODS = %w[
+        VALID_CHANGE_METHODS = %i[
           create_table
           create_join_table
           create_view
@@ -27,7 +27,7 @@ module RuboCop
         ].freeze
 
         MSG = 'This method should not be used in a `change` block. Use a `down` block instead.'
-        PRIMARY_KEY_MESSAGE = 'Cannot use this method with an array parameter inside a `change` block. Use a `down` block instead.'
+        PRIMARY_KEY_MSG = 'Cannot use this method with an array parameter inside a `change` block.'
 
         def on_block(node)
           return unless node.method_name == :change
@@ -35,13 +35,19 @@ module RuboCop
           body = node.body
           return unless body
 
-          body.each_node(:send) do |node|
-            add_offense(node.loc.selector, message: MSG) unless VALID_CHANGE_METHODS.include?(node.method_name)
+          body.each_node(:send) { |child_node| validate_node(child_node) }
+        end
 
-            return unless node.method_name == :add_primary_key
+        private
 
-            add_offense(node.loc.selector, message: PRIMARY_KEY_MESSAGE) if node.argument_list.any? { |arg| arg.is_a? Array }
-          end
+        def validate_node(node)
+          add_offense(node.loc.selector, message: MSG) unless VALID_CHANGE_METHODS.include?(node.method_name)
+
+          return unless node.method_name == :add_primary_key
+
+          return unless node.arguments.any?(&:array_type?)
+
+          add_offense(node.loc.selector, message: PRIMARY_KEY_MSG)
         end
       end
     end
