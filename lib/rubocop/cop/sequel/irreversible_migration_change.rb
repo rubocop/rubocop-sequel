@@ -3,8 +3,8 @@
 module RuboCop
   module Cop
     module Sequel
-      # IrreversibleMigrationChange looks for methods inside a `change` block that cannot be reversed.
-      class IrreversibleMigrationChange < Base
+      # IrreversibleMigration looks for methods inside a `change` block that cannot be reversed.
+      class IrreversibleMigration < Base
         # https://sequel.jeremyevans.net/rdoc/files/doc/migration_rdoc.html#label-A+Basic+Migration
         VALID_CHANGE_METHODS = %i[
           create_table
@@ -26,8 +26,8 @@ module RuboCop
           set_column_allow_null
         ].freeze
 
-        MSG = 'This method should not be used in a `change` block. Use a `down` block instead.'
-        PRIMARY_KEY_MSG = 'Cannot use this method with an array parameter inside a `change` block.'
+        MSG = 'Avoid using this method inside a `change` block. Use a `down` block instead.'
+        PRIMARY_KEY_MSG = 'Avoid using this method with an array argument inside a `change` block.'
 
         def on_block(node)
           return unless node.method_name == :change

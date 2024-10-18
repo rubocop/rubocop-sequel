@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigrationChange do
+RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
   subject(:cop) { described_class.new }
 
   context 'when inside a change block' do
