@@ -26,8 +26,8 @@ module RuboCop
           set_column_allow_null
         ].freeze
 
-        MSG = 'Avoid using this method inside a `change` block. Use a `down` block instead.'
-        PRIMARY_KEY_MSG = 'Avoid using this method with an array argument inside a `change` block.'
+        MSG = 'Avoid using `%<name>s` inside a `change` block. Use a `down` block instead.'
+        PRIMARY_KEY_MSG = 'Avoid using `add_primary_key` with an array argument inside a `change` block.'
 
         def on_block(node)
           return unless node.method_name == :change
@@ -41,9 +41,11 @@ module RuboCop
         private
 
         def validate_node(node)
-          add_offense(node.loc.selector, message: MSG) unless VALID_CHANGE_METHODS.include?(node.method_name)
+          name = node.method_name
 
-          return unless node.method_name == :add_primary_key
+          add_offense(node.loc.selector, message: format(MSG, name: name)) unless VALID_CHANGE_METHODS.include?(name)
+
+          return unless name == :add_primary_key
 
           return unless node.arguments.any?(&:array_type?)
 
