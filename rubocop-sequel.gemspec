@@ -17,5 +17,5 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.5'
 
-  gem.add_runtime_dependency 'rubocop', '~> 1.0'
+  gem.add_dependency 'rubocop', '~> 1.0'
 end
