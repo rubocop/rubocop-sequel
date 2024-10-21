@@ -26,7 +26,7 @@ module RuboCop
           set_column_allow_null
         ].freeze
 
-        MSG = 'Avoid using `%<name>s` inside a `change` block. Use a `down` block instead.'
+        MSG = 'Avoid using `%<name>s` inside a `change` block. Use `up` & `down` blocks instead.'
         PRIMARY_KEY_MSG = 'Avoid using `add_primary_key` with an array argument inside a `change` block.'
 
         def on_block(node)
