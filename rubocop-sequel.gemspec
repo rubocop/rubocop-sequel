@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.name          = 'rubocop-sequel'
   gem.require_paths = ['lib']
-  gem.version       = '0.3.4'
+  gem.version       = '0.3.5'
   gem.metadata['rubygems_mfa_required'] = 'true'
 
   gem.required_ruby_version = '>= 2.5'
