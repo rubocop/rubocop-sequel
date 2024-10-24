@@ -6,10 +6,12 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
   context 'when inside a change block' do
     let(:invalid_source) do
       <<~SOURCE
-        change do
-          alter_table(:stores) do
-            drop_column(:products, :name)
-            drop_index(:products, :price)
+        Sequel.migration do
+          change do
+            alter_table(:stores) do
+              drop_column(:products, :name)
+              drop_index(:products, :price)
+            end
           end
         end
       SOURCE
@@ -17,11 +19,13 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
 
     let(:valid_source) do
       <<~SOURCE
-        change do
-          alter_table(:stores) do
-            add_primary_key(:id)
-            add_column(:products, :name)
-            add_index(:products, :price)
+        Sequel.migration do
+          change do
+            alter_table(:stores) do
+              add_primary_key(:id)
+              add_column(:products, :name)
+              add_index(:products, :price)
+            end
           end
         end
       SOURCE
@@ -40,9 +44,11 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
     describe 'and an array is passed into `add_primary_key`' do
       let(:source) do
         <<~SOURCE
-          change do
-            alter_table(:stores) do
-              add_primary_key([:owner_id, :name])
+          Sequel.migration do
+            change do
+              alter_table(:stores) do
+                add_primary_key([:owner_id, :name])
+              end
             end
           end
         SOURCE
@@ -58,13 +64,28 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
   context 'when inside an up block' do
     let(:source) do
       <<~SOURCE
-        up do
-          alter_table(:stores) do
-            add_primary_key([:owner_id, :name])
-            add_column(:products, :name)
-            drop_index(:products, :price)
+        Sequel.migration do
+          up do
+            alter_table(:stores) do
+              add_primary_key([:owner_id, :name])
+              add_column(:products, :name)
+              drop_index(:products, :price)
+            end
           end
         end
+      SOURCE
+    end
+
+    it 'does not register an offense with any methods' do
+      offenses = inspect_source(source)
+      expect(offenses).to be_empty
+    end
+  end
+
+  context 'when a change block is used outside of a Sequel migration' do
+    let(:source) do
+      <<~SOURCE
+        it { expect { subject }.to change { document_count(user_id) }.by(-1) }
       SOURCE
     end
 
