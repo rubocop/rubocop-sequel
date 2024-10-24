@@ -11,6 +11,12 @@ Sequel/ConcurrentIndex:
   VersionAdded: 0.0.1
   VersionChanged: 0.3.3
 
+Sequel/Helpers/Migration:
+  Description: Contains helper methods for detecting if a node is inside a `Sequel.migration` block
+  Reference: https://www.rubydoc.info/gems/rubocop-sequel/RuboCop/Cop/Sequel/Helpers/Migration
+  VersionAdded: 0.3.6
+  VersionChanged: 0.3.6
+
 Sequel/IrreversibleMigration:
   Description: >-
     Warns against using certain methods inside a migration file's `change` block that would cause the migration to become irreversible.
@@ -52,9 +58,3 @@ Sequel/SaveChanges:
   SafeAutoCorrect: false
   VersionAdded: '0.0.1'
   VersionChanged: '0.3.3'
-
-Sequel/Helpers/Migration:
-  Description: Contains helper methods for detecting if a node is inside a `Sequel.migration` block
-  Reference: https://www.rubydoc.info/gems/rubocop-sequel/RuboCop/Cop/Sequel/Helpers/Migration
-  VersionAdded: 0.3.6
-  VersionChanged: 0.3.6
