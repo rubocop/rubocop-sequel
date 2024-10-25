@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
+  include Spec::Helpers::Migration
+
   subject(:cop) { described_class.new }
 
   context 'when inside a change block' do
@@ -28,12 +30,12 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
     end
 
     it 'registers an offense when there is an invalid method' do
-      offenses = inspect_source(invalid_source)
+      offenses = inspect_source_within_migration(invalid_source)
       expect(offenses.size).to eq(2)
     end
 
     it 'does not register an offense with valid methods' do
-      offenses = inspect_source(valid_source)
+      offenses = inspect_source_within_migration(valid_source)
       expect(offenses).to be_empty
     end
 
@@ -49,7 +51,7 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
       end
 
       it 'registers an offense' do
-        offenses = inspect_source(source)
+        offenses = inspect_source_within_migration(source)
         expect(offenses.size).to eq(1)
       end
     end
@@ -65,6 +67,19 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
             drop_index(:products, :price)
           end
         end
+      SOURCE
+    end
+
+    it 'does not register an offense with any methods' do
+      offenses = inspect_source_within_migration(source)
+      expect(offenses).to be_empty
+    end
+  end
+
+  context 'when a change block is used outside of a Sequel migration' do
+    let(:source) do
+      <<~SOURCE
+        it { expect { subject }.to change { document_count(user_id) }.by(-1) }
       SOURCE
     end
 

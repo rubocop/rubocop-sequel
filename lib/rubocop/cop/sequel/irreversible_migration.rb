@@ -5,6 +5,8 @@ module RuboCop
     module Sequel
       # IrreversibleMigration looks for methods inside a `change` block that cannot be reversed.
       class IrreversibleMigration < Base
+        include Helpers::Migration
+
         # https://sequel.jeremyevans.net/rdoc/files/doc/migration_rdoc.html#label-A+Basic+Migration
         VALID_CHANGE_METHODS = %i[
           create_table
@@ -26,11 +28,12 @@ module RuboCop
           set_column_allow_null
         ].freeze
 
-        MSG = 'Avoid using `%<name>s` inside a `change` block. Use `up` & `down` blocks instead.'
-        PRIMARY_KEY_MSG = 'Avoid using `add_primary_key` with an array argument inside a `change` block.'
+        MSG = 'Avoid using "%<name>s" inside a "change" block. Use "up" & "down" blocks instead.'
+        PRIMARY_KEY_MSG = 'Avoid using "add_primary_key" with an array argument inside a "change" block.'
 
         def on_block(node)
           return unless node.method_name == :change
+          return unless within_sequel_migration?(node)
 
           body = node.body
           return unless body

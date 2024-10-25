@@ -5,6 +5,8 @@ module RuboCop
     module Sequel
       # ConcurrentIndex looks for non-concurrent index creation.
       class ConcurrentIndex < Base
+        include Helpers::Migration
+
         MSG = 'Specify `concurrently` option when creating or dropping an index.'
         RESTRICT_ON_SEND = %i[add_index drop_index].freeze
 
@@ -13,6 +15,8 @@ module RuboCop
         MATCHER
 
         def on_send(node)
+          return unless within_sequel_migration?(node)
+
           indexes?(node) do |args|
             add_offense(node.loc.selector, message: MSG) if offensive?(args)
           end

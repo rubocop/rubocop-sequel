@@ -16,8 +16,8 @@ Sequel/IrreversibleMigration:
     Warns against using certain methods inside a migration file's `change` block that would cause the migration to become irreversible.
   Reference: https://www.rubydoc.info/gems/rubocop-sequel/RuboCop/Cop/Sequel/IrreversibleMigration
   Enabled: true
-  VersionAdded: 0.3.4
-  VersionChanged: 0.3.4
+  VersionAdded: 0.3.5
+  VersionChanged: 0.3.6
 
 Sequel/JSONColumn:
   Description: >-

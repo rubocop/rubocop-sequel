@@ -4,6 +4,8 @@ require 'rubocop'
 require 'rubocop/rspec/support'
 require 'rubocop-sequel'
 
+require_relative 'rubocop/cop/sequel/helpers/migration'
+
 RSpec.configure do |config|
   config.include RuboCop::RSpec::ExpectOffense
   config.disable_monkey_patching!
