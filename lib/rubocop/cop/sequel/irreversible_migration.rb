@@ -5,7 +5,7 @@ module RuboCop
     module Sequel
       # IrreversibleMigration looks for methods inside a `change` block that cannot be reversed.
       class IrreversibleMigration < Base
-        include RuboCop::Cop::Sequel::Helpers::Migration
+        include Helpers::Migration
 
         # https://sequel.jeremyevans.net/rdoc/files/doc/migration_rdoc.html#label-A+Basic+Migration
         VALID_CHANGE_METHODS = %i[
