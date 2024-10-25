@@ -5,6 +5,8 @@ module RuboCop
     module Sequel
       # PartialConstraint looks for missed usage of partial indexes.
       class PartialConstraint < Base
+        include Helpers::Migration
+
         MSG = "Constraint can't be partial, use where argument with index"
         RESTRICT_ON_SEND = %i[add_unique_constraint].freeze
 
@@ -14,6 +16,7 @@ module RuboCop
 
         def on_send(node)
           return unless add_partial_constraint?(node)
+          return unless within_sequel_migration?(node)
 
           add_offense(node.loc.selector, message: MSG)
         end

@@ -5,6 +5,8 @@ module RuboCop
     module Sequel
       # JSONColumn looks for non-JSONB columns.
       class JSONColumn < Base
+        include Helpers::Migration
+
         MSG = 'Use JSONB rather than JSON or hstore'
         RESTRICT_ON_SEND = %i[add_column].freeze
 
@@ -22,12 +24,14 @@ module RuboCop
 
         def on_send(node)
           return unless json_or_hstore?(node)
+          return unless within_sequel_migration?(node)
 
           add_offense(node.loc.selector, message: MSG)
         end
 
         def on_block(node)
           return unless node.send_node.method_name == :create_table
+          return unless within_sequel_migration?(node)
 
           node.each_node(:send) do |method|
             next unless column_method?(method) || column_type?(method)
