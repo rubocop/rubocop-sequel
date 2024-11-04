@@ -44,26 +44,26 @@ module RuboCop
         private
 
         def validate_node(node)
-          name = node.method_name
-
           return if within_create_table_block?(node)
 
-          add_offense(node.loc.selector, message: format(MSG, name: name)) if offensive?(node)
+          add_offense(node.loc.selector, message: format(MSG, name: node.method_name)) unless valid_change_method?(node)
 
-          return unless name == :add_primary_key
-
-          add_offense(node.loc.selector, message: PRIMARY_KEY_MSG) if primary_key_offensive?(node)
+          add_offense(node.loc.selector, message: PRIMARY_KEY_MSG) if invalid_primary_key_method?(node)
         end
 
-        def offensive?(node)
-          !VALID_CHANGE_METHODS.include?(node.method_name)
+        def valid_change_method?(node)
+          VALID_CHANGE_METHODS.include?(node.method_name)
         end
 
-        def primary_key_offensive?(node)
+        def invalid_primary_key_method?(node)
+          return false unless node.method_name == :add_primary_key
+
           node.arguments.any?(&:array_type?)
         end
 
         def within_create_table_block?(node)
+          return true if node.method_name == :create_table
+
           node.each_ancestor(:block).any? do |ancestor|
             ancestor.method_name == :create_table
           end
