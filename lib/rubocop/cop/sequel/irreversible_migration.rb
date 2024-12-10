@@ -28,7 +28,7 @@ module RuboCop
           set_column_allow_null
         ].freeze
 
-        MSG = 'Avoid using "%<name>s" inside a "change" block. Use "up" & "down" blocks instead.'
+        MSG = 'Using "%<name>s" inside a "change" block may cause an irreversible migration. Use "up" & "down" instead.'
         PRIMARY_KEY_MSG = 'Avoid using "add_primary_key" with an array argument inside a "change" block.'
 
         def on_block(node)
@@ -45,6 +45,8 @@ module RuboCop
 
         def validate_node(node)
           return if within_create_table_block?(node)
+
+          return if part_of_method_call?(node)
 
           add_offense(node.loc.selector, message: format(MSG, name: node.method_name)) unless valid_change_method?(node)
 
@@ -67,6 +69,10 @@ module RuboCop
           node.each_ancestor(:block).any? do |ancestor|
             ancestor.method_name == :create_table
           end
+        end
+
+        def part_of_method_call?(node)
+          node.each_ancestor(:send).count.positive?
         end
       end
     end
