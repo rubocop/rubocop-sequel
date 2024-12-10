@@ -103,6 +103,30 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
         expect(offenses.size).to eq(1)
       end
     end
+
+    describe 'and a method is used within an argument' do
+      let(:source) do
+        <<~SOURCE
+          change do
+            alter_table(:stores) do
+              add_column(:products, JSON, null: false, default: Sequel.pg_json({}))
+              add_constraint(
+                :only_one_user,
+                (
+                  Sequel.cast(Sequel.~(user_id: nil), Integer) +
+                  Sequel.cast(Sequel.~(owner_id: nil), Integer)
+                ) => 1,
+              )
+            end
+          end
+        SOURCE
+      end
+
+      it 'does not register an offense with valid methods' do
+        offenses = inspect_source_within_migration(source)
+        expect(offenses).to be_empty
+      end
+    end
   end
 
   context 'when inside an up block' do
