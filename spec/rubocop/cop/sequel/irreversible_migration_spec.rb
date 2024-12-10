@@ -127,6 +127,28 @@ RSpec.describe RuboCop::Cop::Sequel::IrreversibleMigration do
         expect(offenses).to be_empty
       end
     end
+
+    describe 'and an invalid change method contains another invalid change method as an argument' do
+      let(:source) do
+        <<~SOURCE
+          change do
+            alter_table(:stores) do
+              drop_column(:products, JSON, null: false, default: Sequel.pg_json({}))
+            end
+          end
+        SOURCE
+      end
+
+      it 'only registers 1 offense' do
+        offenses = inspect_source_within_migration(source)
+        expect(offenses.size).to eq(1)
+      end
+
+      it 'only registers an offense for the parent method' do
+        offenses = inspect_source_within_migration(source)
+        expect(offenses.first.message).to include('drop_column')
+      end
+    end
   end
 
   context 'when inside an up block' do
