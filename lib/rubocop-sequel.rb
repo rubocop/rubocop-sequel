@@ -3,9 +3,7 @@
 require 'rubocop'
 require 'rubocop/sequel'
 require 'rubocop/sequel/version'
-require 'rubocop/sequel/inject'
-
-RuboCop::Sequel::Inject.defaults!
+require 'rubocop/sequel/plugin'
 
 require_relative 'rubocop/cop/sequel/helpers/migration'
 
