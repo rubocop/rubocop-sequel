@@ -25,22 +25,25 @@ gem 'rubocop-sequel'
 Add to your `.rubocop.yml`.
 
 ```
-require: rubocop-sequel
+plugins: rubocop-sequel
 ```
 
 `rubocop` will now automatically load RuboCop Sequel
 cops alongside with the standard cops.
 
+> [!NOTE]
+> The plugin system is supported in RuboCop 1.72+. In earlier versions, use `require` instead of `plugins`.
+
 ### Command line
 
 ```bash
-rubocop --require rubocop-sequel
+rubocop --plugin rubocop-sequel
 ```
 
 ### Rake task
 
 ```ruby
 RuboCop::RakeTask.new do |task|
-  task.requires << 'rubocop-sequel'
+  task.plugins << 'rubocop-sequel'
 end
 ```

@@ -14,8 +14,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = '0.3.8'
   gem.metadata['rubygems_mfa_required'] = 'true'
+  gem.metadata['default_lint_roller_plugin'] = 'RuboCop::Sequel::Plugin'
 
-  gem.required_ruby_version = '>= 2.5'
+  gem.required_ruby_version = '>= 2.7'
 
-  gem.add_dependency 'rubocop', '~> 1.0'
+  gem.add_dependency 'lint_roller', '~> 1.1'
+  gem.add_dependency 'rubocop', '~> 1.72.1'
 end
