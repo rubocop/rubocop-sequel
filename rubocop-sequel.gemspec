@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.name          = 'rubocop-sequel'
   gem.require_paths = ['lib']
-  gem.version       = '0.4.0'
+  gem.version       = '0.4.1'
   gem.metadata['rubygems_mfa_required'] = 'true'
   gem.metadata['default_lint_roller_plugin'] = 'RuboCop::Sequel::Plugin'
 
