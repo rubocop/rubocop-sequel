@@ -1,5 +1,6 @@
-require:
+plugins:
   - rubocop-rspec
+  - rubocop-sequel
 
 AllCops:
   TargetRubyVersion: 2.7
