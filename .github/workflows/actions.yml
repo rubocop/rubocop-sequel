@@ -30,3 +30,18 @@ jobs:
         run: bundle exec rubocop --parallel
       - name: RSpec
         run: bundle exec rspec
+
+  success:
+    name: Checks passing?
+    needs: main
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if ${{ needs.main.result == 'success' }}
+          then
+            echo "All checks passed"
+          else
+            echo "Some checks failed"
+            false
+          fi
