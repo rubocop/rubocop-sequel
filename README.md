@@ -1,4 +1,4 @@
-![CI status](https://github.com/rubocop/rubocop-sequel/workflows/CI/badge.svg)
+![CI status](https://github.com/rubocop/rubocop-sequel/actions/workflows/actions.yml/badge.svg)
 
 # RuboCop Sequel
 
