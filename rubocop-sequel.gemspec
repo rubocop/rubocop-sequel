@@ -19,5 +19,5 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.7'
 
   gem.add_dependency 'lint_roller', '~> 1.1'
-  gem.add_dependency 'rubocop', '>= 1.72.1', '< 2'
+  gem.add_dependency 'rubocop', '>= 1.89.0', '< 2'
 end
