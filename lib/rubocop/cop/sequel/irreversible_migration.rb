@@ -72,7 +72,7 @@ module RuboCop
         end
 
         def part_of_method_call?(node)
-          node.each_ancestor(:send).count.positive?
+          node.each_ancestor(:send).any?
         end
       end
     end
